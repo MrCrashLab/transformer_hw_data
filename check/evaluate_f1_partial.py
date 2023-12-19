@@ -53,3 +53,11 @@ def main(reference, submission, output_filename):
     out.write(f'f1_object: {ind_scores[1]:.6f}\n')
     out.write(f'f1_predicate: {ind_scores[2]:.6f}\n')
     out.close()
+
+    
+def calculate_f1_average_strict(reference, submission):
+    ref = read_conll(reference)
+    hyp = read_conll(submission)
+    ind_scores_strict, weights_strict = f1_score(ref, hyp, partial=False, average=None)
+    f1_avg_strict = np.average(ind_scores_strict, weights=weights_strict)
+    return f1_avg_strict
